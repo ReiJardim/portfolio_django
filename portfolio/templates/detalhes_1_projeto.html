@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} {{projeto.titulo}} | Portfolio - Rei Jardim {% endblock %}
+
+{% block content %}
+    <h1>
+        {{projeto.titulo}}
+    </h1>
+    <section>
+        <h3>Detalhes do projeto </h3>
+        <p>
+            {{projeto.descricao}}
+        </p>
+        <h3>Tecnologias</h3>
+        <p>
+            {{projeto.tecnologias}}
+        </p>
+        
+        <a href="{{projeto.guithub}}">Acessar</a>
+    </section>
+{% endblock %}

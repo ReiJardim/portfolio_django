@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Home | Portfolio - Rei Jardim {% endblock %}
+
+{% block content %}
+    <section>
+        <h1>
+            Sobre minha pessoa
+        </h1>
+        <p>
+            Ólá, meu nome é Rei Jardim, sou estudante de programação e estou aprendendo a desenvolver aplicações web.
+        </p>
+    </section>
+    <section>
+        <h2>
+            Habilidades de programação
+        </h2>
+        <ul>
+            {% for chave, dados  in habilidades.items %}
+                <li>{{dados.nome}} </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>
+            Contatos
+        </h2>
+        <p>
+            Email: reijardim.eng.civil@gmail.com
+        </p>
+        <p>
+            Linkedin: https://www.linkedin.com/in/rei-jardim-18b989180/
+        </p>
+    </section>
+    
+{% endblock %}
