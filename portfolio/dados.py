@@ -1,12 +1,18 @@
 habilidades = {
     'habilidade1': {
-        'nome': 'Python',
+        'nome': 'Programação com Python',
     },
     'habilidade2': {
-        'nome': 'Django',
+        'nome': 'Geoprocessamento',
     },
     'habilidade3': {
-        'nome': 'FLASK',
+        'nome': 'Dam Break',
+    },
+    'habilidade4': {
+        'nome': 'Machine Learning',
+    },
+    'habilidade5': {
+        'nome': 'Modelagem 3d e Simulação',
     },
 
 }
