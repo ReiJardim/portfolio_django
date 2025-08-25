@@ -1,33 +1,184 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}{{ projeto.titulo }} | Meu Portfólio{% endblock %}
+{% block title %}{{ projeto.titulo }} | Rei Jardim{% endblock %}
 
 {% block content %}
-    <h1 class="page-title">{{ projeto.titulo }}</h1>
+    <div class="project-header">
+        <div class="breadcrumbs">
+            <a href="{% url 'home' %}">Home</a> &gt;
+            <a href="{% url 'lista_projetos' %}">Projetos</a> &gt;
+            <span>{{ projeto.titulo }}</span>
+        </div>
+        <h1 class="project-title">{{ projeto.titulo }}</h1>
+        <div class="project-category">{{ projeto.categoria }}</div>
+    </div>
 
-    <section id="detalhes" class="project-details">
-        <h3>Detalhes do Projeto</h3>
-        <p>{{ projeto.descricao }}</p>
-        
-        <div class="project-meta">
-            <div class="meta-item">
-                <strong>Tecnologias:</strong>
-                <span>{{ projeto.tecnologias|default:"Python, Django" }}</span>
-            </div>
-            <div class="meta-item">
-                <strong>Data:</strong>
-                <span>{{ projeto.data|default:"2025" }}</span>
+    <section class="project-details-container">
+        <div class="project-details-grid">
+            <div class="project-main-info">
+                <div class="project-image-gallery">
+                    <div class="main-image">
+                        {% if projeto.imagem %}
+                            <img src="{% static projeto.imagem %}" alt="{{ projeto.titulo }}">
+                        {% else %}
+                            <div class="placeholder-image">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="project-description">
+                    <h2>Descrição do Projeto</h2>
+                    <div class="description-content">
+                        <p>{{ projeto.descricao }}</p>
+                    </div>
+                </div>
+
+                <div class="project-features">
+                    <h2>Funcionalidades</h2>
+                    <ul class="features-list">
+                        {% if projeto.funcionalidades %}
+                            {% for funcionalidade in projeto.funcionalidades %}
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>{{ funcionalidade }}</span>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Funcionalidade principal do projeto</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Interface intuitiva e responsiva</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Processamento eficiente de dados</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
             
-            {% if projeto.github %}
-            <div class="meta-item">
-                <strong>GitHub:</strong>
-                <a href="{{ projeto.github }}" target="_blank">Repositório</a>
+            <div class="project-sidebar">
+                <div class="project-meta-card">
+                    <h3>Informações do Projeto</h3>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="meta-content">
+                            <span class="meta-label">Data</span>
+                            <span class="meta-value">{{ projeto.data|default:"2023" }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="meta-content">
+                            <span class="meta-label">Categoria</span>
+                            <span class="meta-value">{{ projeto.categoria }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="meta-content">
+                            <span class="meta-label">Tecnologias</span>
+                            <div class="tech-tags">
+                                {% for tech in projeto.tecnologias.split %}
+                                    <span class="tech-tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if projeto.github %}
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="meta-content">
+                            <span class="meta-label">GitHub</span>
+                            <a href="{{ projeto.github }}" target="_blank" class="meta-link">Ver Repositório</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if projeto.site_projeto %}
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <div class="meta-content">
+                            <span class="meta-label">Site do Projeto</span>
+                            <a href="{{ projeto.site_projeto }}" target="_blank" class="meta-link">Visitar Site</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="related-projects">
+                    <h3>Projetos Relacionados</h3>
+                    <div class="related-projects-list">
+                        {% for nome, dados in projetos.items %}
+                            {% if dados.categoria == projeto.categoria and nome != id_projeto %}
+                                <a href="{% url 'detalhes_projeto' id_projeto=nome %}" class="related-project-item">
+                                    <div class="related-project-image">
+                                        {% if dados.imagem %}
+                                            <img src="{% static dados.imagem %}" alt="{{ dados.titulo }}">
+                                        {% else %}
+                                            <div class="placeholder-small">
+                                                <i class="fas fa-code"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="related-project-info">
+                                        <h4>{{ dados.titulo }}</h4>
+                                        <span class="related-project-date">{{ dados.data }}</span>
+                                    </div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            {% endif %}
         </div>
-        
     </section>
 
+    <section class="project-navigation">
+        <div class="nav-previous">
+            <a href="{% url 'lista_projetos' %}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Voltar para Projetos
+            </a>
+        </div>
+        <div class="nav-contact">
+            <a href="#contact" class="btn btn-primary">Entre em Contato</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animação para os elementos da página
+    document.addEventListener('DOMContentLoaded', function() {
+        const elements = document.querySelectorAll('.project-main-info > *, .project-sidebar > *');
+        
+        elements.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add('animate');
+            }, 100 * index);
+        });
+    });
+</script>
 {% endblock %}
 

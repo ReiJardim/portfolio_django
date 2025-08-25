@@ -1,0 +1,581 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre Mim | Meu Portfólio{% endblock %}
+
+{% block content %}
+<section class="sobre-section">
+    <div class="container">
+        <h1 class="section-title">Sobre Mim</h1>
+        <div class="profile-container">
+            <div class="profile-image">
+                <img src="../static/img/rei.png" alt="Minha Foto de Perfil">
+            </div>
+            <div class="profile-text">
+                <h2>Engenheiro Civil & Desenvolvedor</h2>
+                <p class="bio">
+                    Sou um profissional multidisciplinar com formação em Engenharia Civil e especialização em Geoprocessamento, 
+                    além de habilidades sólidas em desenvolvimento de software com foco em Python. Minha jornada 
+                    profissional combina o conhecimento técnico de engenharia com soluções tecnológicas inovadoras.
+                </p>
+                <p class="bio">
+                    Atuo em projetos que envolvem análise de dados geoespaciais, modelagem hidrodinâmica, 
+                    desenvolvimento de aplicações para automação de processos e implementação de soluções 
+                    de inteligência artificial para otimização de fluxos de trabalho.
+                </p>
+                <div class="skill-tags">
+                    {% for id, habilidade in habilidades.items %}
+                        <span class="skill-tag"><i class="fas {{ habilidade.icone }}"></i> {{ habilidade.nome }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2 class="section-subtitle">Experiência Profissional</h2>
+            <div class="timeline">
+                {% for key, experiencia in experiencias.items %}
+                <div class="timeline-item {% if experiencia.atual %}current{% endif %}">
+                    <div class="timeline-date">{{ experiencia.periodo }}</div>
+                    <div class="timeline-content">
+                        <h3>{{ experiencia.cargo }}</h3>
+                        <h4>{{ experiencia.empresa }}</h4>
+                        <p>{{ experiencia.descricao }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="education-section">
+            <h2 class="section-subtitle">Formação Acadêmica</h2>
+            <div class="education-grid">
+                {% for key, formacao in formacoes.items %}
+                <div class="education-item">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>{{ formacao.curso }}</h3>
+                        <h4>{{ formacao.instituicao }} | {{ formacao.periodo }}</h4>
+                        <p class="education-type">{{ formacao.grau }}</p>
+                        <p>{{ formacao.descricao }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="certifications-section">
+            <h2 class="section-subtitle">Certificações</h2>
+            <div class="certifications-grid">
+                <div class="certification-item">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Python para Análise de Dados</h3>
+                        <p>Certificação profissional que abrange bibliotecas como Pandas, NumPy, Matplotlib e técnicas avançadas de manipulação de dados.</p>
+                        <div class="certification-footer">
+                            <span class="certification-issuer">DataCamp</span>
+                            <span class="certification-date">2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certification-item">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Modelagem Hidrológica Avançada</h3>
+                        <p>Capacitação em técnicas avançadas de modelagem hidrológica para simulação de eventos extremos e gestão de recursos hídricos.</p>
+                        <div class="certification-footer">
+                            <span class="certification-issuer">Instituto de Recursos Hídricos</span>
+                            <span class="certification-date">2022</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certification-item">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Desenvolvimento Web com Django</h3>
+                        <p>Formação completa em desenvolvimento de aplicações web utilizando o framework Django, incluindo autenticação, APIs e deploy.</p>
+                        <div class="certification-footer">
+                            <span class="certification-issuer">Udemy</span>
+                            <span class="certification-date">2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="values-section">
+            <h2 class="section-subtitle">Valores e Abordagem</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Inovação</h3>
+                    <p>Busco constantemente novas tecnologias e metodologias para solucionar problemas complexos.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Colaboração</h3>
+                    <p>Acredito no poder do trabalho em equipe e na troca de conhecimentos para alcançar resultados superiores.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Excelência</h3>
+                    <p>Comprometo-me com a qualidade e precisão em cada projeto, buscando superar expectativas.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Aprendizado Contínuo</h3>
+                    <p>Invisto constantemente em meu desenvolvimento, mantendo-me atualizado nas áreas em que atuo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Vamos trabalhar juntos?</h2>
+            <p>Estou sempre aberto a novos desafios e oportunidades de colaboração.</p>
+            <a href="{% url 'contato' %}" class="btn-primary">Entre em Contato</a>
+            <a href="/dados/CV_ReiJardim (1).pdf" class="btn-outline" download>Baixar Currículo</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .sobre-section {
+        padding: 80px 0;
+    }
+    
+    .profile-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 60px;
+        gap: 40px;
+    }
+    
+    .profile-image {
+        flex: 0 0 300px;
+    }
+    
+    .profile-image img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .profile-text {
+        flex: 1;
+    }
+    
+    .profile-text h2 {
+        margin-bottom: 20px;
+        color: var(--primary-color);
+    }
+    
+    .bio {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+    
+    .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    
+    .skill-tag {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: var(--light-accent);
+        color: var(--primary-color);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .skill-tag i {
+        margin-right: 5px;
+    }
+    
+    .section-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        color: var(--primary-color);
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .section-subtitle:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+    
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        background-color: var(--light-gray);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1px;
+    }
+    
+    .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+    
+    .timeline-item:nth-child(odd) {
+        left: 0;
+    }
+    
+    .timeline-item:nth-child(even) {
+        left: 50%;
+    }
+    
+    .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: -10px;
+        background-color: white;
+        border: 4px solid var(--accent-color);
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    
+    .timeline-item:nth-child(even)::after {
+        left: -10px;
+    }
+    
+    .timeline-content {
+        padding: 20px 30px;
+        background-color: white;
+        position: relative;
+        border-radius: 6px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .timeline-date {
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+    
+    .timeline-item.current .timeline-content {
+        border-left: 4px solid var(--accent-color);
+    }
+    
+    .education-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .education-item {
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .education-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .education-icon {
+        flex: 0 0 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .education-icon i {
+        font-size: 2rem;
+    }
+    
+    .education-content {
+        flex: 1;
+        padding: 20px;
+    }
+    
+    .education-content h3 {
+        margin-bottom: 10px;
+        color: var(--primary-color);
+    }
+    
+    .education-content h4 {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+    }
+    
+    .education-type {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: var(--light-accent);
+        color: var(--primary-color);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .certifications-section {
+        margin-top: 80px;
+    }
+    
+    .certifications-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .certification-item {
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .certification-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .certification-icon {
+        flex: 0 0 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--accent-color);
+        color: white;
+    }
+    
+    .certification-icon i {
+        font-size: 2rem;
+    }
+    
+    .certification-content {
+        flex: 1;
+        padding: 20px;
+        position: relative;
+    }
+    
+    .certification-content h3 {
+        margin-bottom: 10px;
+        color: var(--primary-color);
+    }
+    
+    .certification-content p {
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .certification-footer {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+    }
+    
+    .certification-issuer {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    .certification-date {
+        color: var(--text-muted);
+    }
+    
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .value-item {
+        background-color: white;
+        padding: 30px 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .value-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .value-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: var(--light-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+    
+    .value-icon i {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+    }
+    
+    .value-item h3 {
+        margin-bottom: 15px;
+        color: var(--primary-color);
+    }
+    
+    .cta-section {
+        margin-top: 80px;
+        text-align: center;
+        padding: 60px 0;
+        background-color: var(--light-gray);
+        border-radius: 10px;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+    }
+    
+    .cta-section p {
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+    
+    .btn-primary {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        margin-right: 15px;
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    .btn-outline {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .profile-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .profile-image {
+            flex: 0 0 auto;
+            width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .section-subtitle:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline::after {
+            left: 31px;
+        }
+        
+        .timeline-item {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 25px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 0;
+        }
+        
+        .timeline-item::after {
+            left: 21px;
+            right: auto;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: 21px;
+        }
+        
+        .education-grid,
+        .values-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

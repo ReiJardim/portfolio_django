@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}Contato | Meu Portfólio{% endblock %}
+
+{% block content %}
+<section class="contato-section">
+    <div class="container">
+        <h1 class="section-title">Entre em Contato</h1>
+        
+        {% if mensagem %}
+            <div class="alert alert-{{ mensagem.tipo }}">
+                {{ mensagem.texto }}
+            </div>
+        {% endif %}
+        
+        <div class="contato-container">
+            <div class="contato-info">
+                <h2>Vamos conversar!</h2>
+                <p>
+                    Estou sempre aberto a novas oportunidades, parcerias e projetos interessantes. 
+                    Se você tem algum projeto em mente, uma pergunta ou simplesmente quer dizer olá, 
+                    sinta-se à vontade para entrar em contato.
+                </p>
+                
+                <div class="contato-items">
+                                            <div class="contato-item">
+                        <div class="contato-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contato-text">
+                            <h3>Email</h3>
+                            <p><a href="mailto:reijardim.eng.civil@gmail.com">reijardim.eng.civil@gmail.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contato-item">
+                        <div class="contato-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contato-text">
+                            <h3>Telefone</h3>
+                            <p><a href="tel:+5500000000000">Entre em contato por email para obter</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contato-item">
+                        <div class="contato-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contato-text">
+                            <h3>Localização</h3>
+                            <p>Belo Horizonte, MG - Brasil</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/ReiJardim" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/rei-jardim-18b989180/" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/ReiJardim" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/seu-perfil" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://twitter.com/seu-perfil" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com/seu-perfil" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contato-form">
+                <h2>Envie uma mensagem</h2>
+                <form action="#" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" id="assunto" name="assunto" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="arquivo">Anexar arquivo (opcional)</label>
+                        <input type="file" id="arquivo" name="arquivo" class="file-input">
+                        <small class="file-info">Tamanho máximo: 5MB. Formatos aceitos: PDF, DOC, DOCX, JPG, PNG</small>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contato-section {
+        padding: 80px 0;
+    }
+    
+    .alert {
+        padding: 15px 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: 500;
+    }
+    
+    .alert-sucesso {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .alert-erro {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    
+    .contato-container {
+        display: flex;
+        gap: 50px;
+        margin-top: 40px;
+    }
+    
+    .contato-info {
+        flex: 1;
+    }
+    
+    .contato-info h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+    
+    .contato-info > p {
+        margin-bottom: 40px;
+        line-height: 1.7;
+        font-size: 1.1rem;
+    }
+    
+    .contato-items {
+        margin-top: 30px;
+    }
+    
+    .contato-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+    
+    .contato-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--light-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .contato-icon i {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+    }
+    
+    .contato-text h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+    }
+    
+    .contato-text p {
+        margin: 0;
+    }
+    
+    .contato-text a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .contato-text a:hover {
+        color: var(--accent-color);
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 40px;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .social-link i {
+        font-size: 1.2rem;
+    }
+    
+    .contato-form {
+        flex: 1;
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .contato-form h2 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+    
+    .file-input {
+        border: 1px dashed #ddd;
+        padding: 10px;
+        width: 100%;
+        background-color: #f9f9f9;
+    }
+    
+    .file-info {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.8rem;
+        color: #666;
+    }
+    
+    .btn-primary {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    @media (max-width: 768px) {
+        .contato-container {
+            flex-direction: column;
+        }
+        
+        .contato-form,
+        .contato-info {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

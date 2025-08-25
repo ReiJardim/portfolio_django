@@ -1,20 +1,120 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Projetos - Meu Portfólio{% endblock %}
+{% block title %}Projetos | Rei Jardim{% endblock %}
 
 {% block content %}
-    <h1 class="page-title">Meus Projetos</h1>
+    <div class="projects-header">
+        <h1 class="page-title">Meus Projetos</h1>
+        <p class="projects-subtitle">Conheça alguns dos projetos que desenvolvi combinando engenharia e programação</p>
+    </div>
     
-    <section class="projects-section">
-        <p>Aqui estão alguns dos projetos que desenvolvi. Clique em um projeto para ver mais detalhes.</p>
-        
-        <ul class="project-list">
-            {% for nome, dados in projetos.items %}
-                <li class="project-item">
-                    <a href="{% url 'detalhes_projeto' id_projeto=nome %}">{{ dados.titulo }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="projects-filter">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="Engenharia Civil">Engenharia Civil</button>
+        <button class="filter-btn" data-filter="Geoprocessamento">Geoprocessamento</button>
+        <button class="filter-btn" data-filter="Análise de Dados">Análise de Dados</button>
+        <button class="filter-btn" data-filter="Inteligência Artificial">Inteligência Artificial</button>
+        <button class="filter-btn" data-filter="Processamento de Áudio">Processamento de Áudio</button>
+    </div>
+    
+    <section class="projects-grid">
+        {% for nome, dados in projetos.items %}
+            <div class="project-card" data-category="{{ dados.categoria }}">
+                <div class="project-image">
+                    {% if dados.imagem %}
+                        <img src="{% static dados.imagem %}" alt="{{ dados.titulo }}">
+                    {% else %}
+                        <div class="project-image-placeholder">
+                            <i class="fas fa-code"></i>
+                        </div>
+                    {% endif %}
+                    {% if dados.destaque %}
+                        <div class="project-badge">Destaque</div>
+                    {% endif %}
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">{{ dados.titulo }}</h3>
+                    <div class="project-category">{{ dados.categoria }}</div>
+                    <p class="project-description">{{ dados.descricao|truncatechars:120 }}</p>
+                    <div class="project-tech">
+                        {% for tech in dados.tecnologias.split|slice:":4" %}
+                            <span class="tech-tag">{{ tech }}</span>
+                        {% endfor %}
+                        {% if dados.tecnologias.split|length > 4 %}
+                            <span class="tech-tag more-tech">+{{ dados.tecnologias.split|length|add:"-4" }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-links">
+                        <a href="{% url 'detalhes_projeto' id_projeto=nome %}" class="btn-view">Ver Detalhes</a>
+                        {% if dados.github %}
+                            <a href="{{ dados.github }}" target="_blank" class="btn-github">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </section>
+
+    <div class="no-projects-message" style="display: none;">
+        <p>Nenhum projeto encontrado nesta categoria.</p>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Filtro de projetos
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        const noProjectsMessage = document.querySelector('.no-projects-message');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove classe active de todos os botões
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Adiciona classe active ao botão clicado
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                let visibleProjects = 0;
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        visibleProjects++;
+                    } else {
+                        if (card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            visibleProjects++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // Mostra mensagem se não houver projetos
+                if (visibleProjects === 0) {
+                    noProjectsMessage.style.display = 'block';
+                } else {
+                    noProjectsMessage.style.display = 'none';
+                }
+            });
+        });
+        
+        // Animação de entrada dos cards
+        function animateCards() {
+            projectCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, 100 * index);
+            });
+        }
+        
+        animateCards();
+    });
+</script>
 {% endblock %}
 
